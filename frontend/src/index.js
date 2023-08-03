@@ -25,8 +25,8 @@ function readAllStudents() {
         row.appendChild(gradeCell);
         const actionCell = document.createElement("td");
         actionCell.innerHTML = `
-        <button type="button" class="btn btn-primary" onclick="openEdit('${student.ID}')">Edit</button>
-        <button type="button" class="btn btn-danger" onclick="openDelete('${student.ID}')">Delete</button>
+        <button type="button" class="btn btn-primary" onclick="studentEdit(${student.ID})">Edit</button>
+        <button type="button" class="btn btn-danger" onclick="studentDelete(${student.ID})">Delete</button>
         `;
         row.appendChild(actionCell);
         tableBody.appendChild(row);
@@ -37,8 +37,24 @@ function readAllStudents() {
     });
 }
 
-let form = form from add;
-form.addEventListener('submit', addStudent)
-function addStudent(event){
-  event.preventDefault();
+function studentDelete(id) {
+  const confirmarBorrar = document.getElementById("delete_playlist_button");
+  axios
+    .get("http://localhost:3000/api/read/" + id)
+    .then(function (response) {
+      data = response.data;
+      const student = data[0].student;
+      console.log("datos:" + data[0].id);
+      $("#delete_modal_content").html("Estudiante: " + student.name);
+      $("#deleteModal").modal("toggle");
+      confirmarBorrar.addEventListener("click", function () {
+        axios.delete("http://localhost:3000/api/delete/" + data[0].id);
+        window.location.reload(true);
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 }
+
+window.studentDelete = studentDelete;
