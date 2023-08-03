@@ -38,7 +38,7 @@ function readAllStudents() {
 }
 
 function studentDelete(id) {
-  const confirmarBorrar = document.getElementById("delete_playlist_button");
+  const confirmarBorrar = document.getElementById("delete_student_button");
   axios
     .get("http://localhost:3000/api/read/" + id)
     .then(function (response) {
@@ -58,7 +58,7 @@ function studentDelete(id) {
 }
 
 function studentEdit(id) {
-  const confirmarEditar = document.getElementById("edit_playlist_button");
+  const confirmarEditar = document.getElementById("edit_student_button");
   console.log(id);
   axios
     .get("http://localhost:3000/api/read/" + id)
