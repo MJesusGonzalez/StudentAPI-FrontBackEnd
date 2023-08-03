@@ -57,4 +57,56 @@ function studentDelete(id) {
     });
 }
 
+function studentEdit(id) {
+  const confirmarEditar = document.getElementById("edit_playlist_button");
+  console.log(id);
+  axios
+    .get("http://localhost:3000/api/read/" + id)
+    .then(function (response) {
+      data = response.data;
+      const student = data[0].student;
+      $("#id_e").val(student.ID);
+      $("#name_e").val(student.name);
+      $("#age_e").val(student.age);
+      $("#grade_e").val(student.grade);
+      $("#editModal").modal("toggle");
+      console.log(data[0].id);
+      confirmarEditar.addEventListener("click", function () {
+        axios.put(`http://localhost:3000/api/update/${data[0].id}`, {
+          student: {
+            ID: parseInt($("#id_e").val()),
+            name: $("#name_e").val(),
+            age: parseInt($("#age_e").val()),
+            grade: $("#grade_e").val(),
+          },
+        });
+        location.reload();
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+function studentCreate() {
+  axios
+    .post("http://localhost:3000/api/create", {
+      student: {
+        ID: parseInt($("#id_c").val()),
+        name: $("#name_c").val(),
+        age: parseInt($("#age_c").val()),
+        grade: $("#grade_c").val(),
+      },
+    })
+    .then(function (response) {
+      location.reload();
+      console.log("creado");
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+window.studentEdit = studentEdit;
+window.studentCreate = studentCreate;
+
 window.studentDelete = studentDelete;
