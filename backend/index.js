@@ -102,7 +102,6 @@ app.post("/api/create", (req, res) => {
 app.put("/api/update/:item_id", (req, res) => {
   (async () => {
     try {
-      console.log(req.params.item_id);
       const studentDocumentId = doc(db, "students", req.params.item_id);
       await updateDoc(studentDocumentId, req.body.student);
       return res.status(200).send();
