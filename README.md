@@ -15,7 +15,6 @@
 
 1. Install packages
    ```
-   npm init -y
    npm install
    ```
 2. run backend
@@ -28,7 +27,6 @@
 1. Install packages
 
    ```
-   npm init -y
    npm install
    ```
 
